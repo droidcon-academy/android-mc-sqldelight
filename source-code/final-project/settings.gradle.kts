@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Sqldelight master course"
+rootProject.name = "Tiny Invoice"
 include(":app")
  
