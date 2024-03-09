@@ -1,0 +1,35 @@
+CREATE TABLE IF NOT EXISTS invoiceEntity(
+    id INTEGER UNIQUE PRIMARY KEY NOT NULL,
+    businessId INTEGER NOT NULL,
+    customerId INTEGER NOT NULL,
+    taxId INTEGER NOT NULL,
+    isPaid INTEGER NOT NULL DEFAULT 0
+);
+
+getInvoiceList:
+SELECT
+invoiceEntity.id AS invoiceEntityId, invoiceEntity.isPaid AS invoiceEntityIsPaid,
+businessEntity.id AS businessEntityId, businessEntity.name AS businessEntityName, businessEntity.email AS businessEntityEmail, businessEntity.phone AS businessEntityPhone, businessEntity.address AS businessEntityAddress,
+customerEntity.id AS customerEntityId, customerEntity.name AS customerEntityName, customerEntity.email AS customerEntityEmail, customerEntity.phone AS customerEntityPhone, customerEntity.address AS customerEntityAddress,
+taxEntity.id AS taxEntityId, taxEntity.desc AS taxEntityDesc, taxEntity.value AS taxEntityValue
+FROM invoiceEntity
+LEFT JOIN businessEntity ON invoiceEntity.businessId = businessEntity.id
+LEFT JOIN customerEntity ON invoiceEntity.customerId = customerEntity.id
+LEFT JOIN taxEntity ON invoiceEntity.taxId = taxEntity.id;
+
+addInvoice:
+INSERT OR REPLACE
+INTO invoiceEntity(businessId, customerId, taxId, isPaid)
+VALUES (:businessId, :customerId, :taxId, :isPaid);
+
+lastInsertRowId:
+SELECT last_insert_rowid();
+
+deleteInvoice:
+DELETE FROM invoiceEntity
+WHERE id = :id ;
+
+setPaidStatus:
+UPDATE invoiceEntity
+SET isPaid = :status
+WHERE id = :invoiceId;
