@@ -4,16 +4,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.droidcon.tinyinvoice.domain.model.Customer
 import com.droidcon.tinyinvoice.domain.repository.CustomerRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CustomerViewModel(
+@HiltViewModel
+class CustomerViewModel @Inject constructor(
     private val customerRepository: CustomerRepository,
 ) : ViewModel() {
 
@@ -21,26 +20,12 @@ class CustomerViewModel(
     val state: StateFlow<CustomerListState> = mutableState.asStateFlow()
 
     fun getCustomerList() {
-        customerRepository.getCustomers()
-            .onEach { result ->
-                mutableState.update { prevState ->
-                    prevState.copy(customerList = result)
-                }
-            }
-            .catch { exception ->
-                mutableState.update {
-                    CustomerListState(
-                        errorMessage = exception.localizedMessage
-                            ?: "An unexpected error occurred.",
-                    )
-                }
-            }
-            .launchIn(viewModelScope)
+        // TODO
     }
 
     fun addNewCustomer(name: String, address: String, phone: String, email: String) =
         viewModelScope.launch {
-            customerRepository.addUpdateCustomer(name, address, phone, email)
+            // TODO
         }
 
 }

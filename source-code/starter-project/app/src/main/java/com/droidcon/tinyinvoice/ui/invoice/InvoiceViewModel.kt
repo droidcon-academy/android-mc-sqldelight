@@ -5,16 +5,16 @@ import androidx.lifecycle.viewModelScope
 import com.droidcon.tinyinvoice.domain.model.InvoiceItem
 import com.droidcon.tinyinvoice.domain.model.InvoiceWithItems
 import com.droidcon.tinyinvoice.domain.repository.InvoiceRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class InvoiceViewModel(
+@HiltViewModel
+class InvoiceViewModel @Inject constructor(
     private val invoiceRepository: InvoiceRepository,
 ) : ViewModel() {
 
@@ -22,21 +22,7 @@ class InvoiceViewModel(
     val state: StateFlow<InvoiceListState> = mutableState.asStateFlow()
 
     fun getInvoiceList() {
-        invoiceRepository.getInvoices()
-            .onEach { result ->
-                mutableState.update { prevState ->
-                    prevState.copy(invoiceList = result)
-                }
-            }
-            .catch { exception ->
-                mutableState.update {
-                    InvoiceListState(
-                        errorMessage = exception.localizedMessage
-                            ?: "An unexpected error occurred.",
-                    )
-                }
-            }
-            .launchIn(viewModelScope)
+        // TODO
     }
 
     fun setInvoiceId(invoiceId: Long) {
@@ -46,26 +32,12 @@ class InvoiceViewModel(
     }
 
     fun getInvoiceItemList(invoiceId: Long) {
-        invoiceRepository.getInvoiceItems(invoiceId = invoiceId)
-            .onEach { result ->
-                mutableState.update { prevState ->
-                    prevState.copy(invoiceItemList = result)
-                }
-            }
-            .catch { exception ->
-                mutableState.update {
-                    InvoiceListState(
-                        errorMessage = exception.localizedMessage
-                            ?: "An unexpected error occurred.",
-                    )
-                }
-            }
-            .launchIn(viewModelScope)
+        // TODO
     }
 
     fun addNewInvoiceItem(description: String, qty: Double, price: Double, invoiceId: Long) =
         viewModelScope.launch {
-            invoiceRepository.addInvoiceItem(desc = description, qty, price, invoiceId)
+            // TODO
         }
 
     suspend fun addNewInvoice(

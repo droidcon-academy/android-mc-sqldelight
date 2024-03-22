@@ -6,7 +6,7 @@ import com.droidcon.tinyinvoice.domain.repository.BusinessRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class BusinessRepositoryImpl(
+class BusinessRepositoryImpl @Inject constructor(
     private val dao: BusinessDao,
 ) : BusinessRepository {
 

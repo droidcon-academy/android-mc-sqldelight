@@ -6,7 +6,7 @@ import com.droidcon.tinyinvoice.domain.repository.TaxRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class TaxRepositoryImpl(
+class TaxRepositoryImpl @Inject constructor(
     private val dao: TaxDao,
 ) : TaxRepository {
     override suspend fun addUpdateTax(desc: String, value: Long) =
