@@ -4,5 +4,6 @@ plugins {
         alias(androidApplication) apply false
         alias(jetbrainsKotlinAndroid) apply false
         alias(kotlin.parcelize) apply false
+        alias(compose) apply false
     }
 }
