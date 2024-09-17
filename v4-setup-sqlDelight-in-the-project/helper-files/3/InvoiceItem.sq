@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS invoiceItemEntity(
+    id INTEGER UNIQUE PRIMARY KEY NOT NULL,
+    desc TEXT NOT NULL,
+    qty REAL NOT NULL,
+    price REAL NOT NULL,
+    invoiceId INTEGER NOT NULL
+);
