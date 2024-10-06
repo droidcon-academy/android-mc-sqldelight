@@ -83,7 +83,6 @@ dependencies {
     kapt(libs.hilt.compiler)
     testImplementation(libs.sqldelight.test)
     testImplementation(libs.bundles.kotest)
-    implementation(libs.bundles.kotest)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
