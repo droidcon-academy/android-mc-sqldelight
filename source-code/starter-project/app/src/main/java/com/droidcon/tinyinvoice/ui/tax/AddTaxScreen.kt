@@ -76,9 +76,9 @@ fun AddTaxScreen(
         Spacer(modifier = Modifier.height(16.dp))
         TextInput(
             label = "value",
-            value = value.toString(),
+            value = if (value == 0L) "" else value.toString(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            onValueChange = { value = it.toLong() },
+            onValueChange = { value = it.toLongOrNull() ?: 0L},
         )
         Spacer(modifier = Modifier.height(16.dp))
         Button(
